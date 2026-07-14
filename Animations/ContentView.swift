@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var animationAmount: CGFloat = 1.0
     
     var body: some View{
-        VStack{
+            //Mark: Implicit view animation
             //            Button("Tap Me"){
             //                //animationAmount += 1.0
             //            }
@@ -36,27 +36,37 @@ struct ContentView: View {
             //            }
             //
             // control binding
-            print(animationAmount)
-            return
             
-        VStack {
-                Stepper("Scale amount", value: $animationAmount.animation(
-                    .easeInOut(duration: 1)
-                    .repeatCount(5, autoreverses: true)
-                ), in: 1...10)
-                
-                Spacer()
-                
-            Button("Tap Me") {
-                    animationAmount += 1
-                }
-                .padding(40)
-                .background(.red)
-                .foregroundStyle(.white)
-                .clipShape(.circle)
-                .scaleEffect(animationAmount)
+        // Mark: Implicit Binding animation
+//        VStack {
+//            Stepper("Scale amount", value: $animationAmount.animation(
+//                    .easeInOut(duration: 1)
+//                    .repeatCount(5, autoreverses: true)
+//            ), in: 1...10)
+//                
+//            Spacer()
+//                
+//            Button("Tap Me") {
+//                    animationAmount += 1
+//            }
+//            .padding(40)
+//            .background(.red)
+//            .foregroundStyle(.white)
+//            .clipShape(.circle)
+//            .scaleEffect(animationAmount)
+//        }
+        
+        //Mark: Explicit animation
+        Button("tap me"){
+            withAnimation(.spring(duration: 1, bounce: 0.5)){
+                animationAmount += 360
             }
         }
+        .padding(50)
+        .background(Color.red)
+        .foregroundColor(.white)
+        .clipShape(.circle)
+        .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 0))
     }
 }
 
