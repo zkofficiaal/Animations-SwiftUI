@@ -120,6 +120,17 @@ struct ContentView: View {
                 enabled.toggle()
             }
         }
+        // Mark: Opacity animation
+        Button("Fade Me") {
+            withAnimation(.easeInOut(duration: 1)) {
+                enabled.toggle()
+            }
+        }
+        .frame(width: 150, height: 150)
+        .background(.purple)
+        .foregroundStyle(.white)
+        .opacity(enabled ? 0.3 : 1.0)
+
     }
 }
 
