@@ -10,8 +10,9 @@ import SwiftUI
 struct ContentView: View {
     @State private var animationAmount: CGFloat = 1.0
     @State private var enabled = false
+    @State private var showText = false
+    @Namespace private var animationNamespace
 
-    
     var body: some View{
         //Mark: Implicit view animation
         //            Button("Tap Me"){
@@ -87,7 +88,38 @@ struct ContentView: View {
         .animation(.default, value: enabled )
         
         
-
+        // Mark: Extra Concept - Delayed Fade In
+        Text("Hello Animation")
+            .padding()
+            .background(.purple)
+            .foregroundStyle(.white)
+            .clipShape(.capsule)
+            .opacity(showText ? 1 : 0)
+            .onAppear {
+                withAnimation(.easeInOut.delay(1)) {
+                    showText = true
+                }
+            }
+        
+        // Mark: Extra Concept - Matched Geometry Effect
+        VStack {
+            if enabled {
+                Circle()
+                    .fill(Color.green)
+                    .matchedGeometryEffect(id: "shape", in: animationNamespace)
+                    .frame(width: 100, height: 100)
+            } else {
+                Rectangle()
+                    .fill(Color.orange)
+                    .matchedGeometryEffect(id: "shape", in: animationNamespace)
+                    .frame(width: 100, height: 100)
+            }
+        }
+        .onTapGesture {
+            withAnimation(.easeInOut) {
+                enabled.toggle()
+            }
+        }
     }
 }
 
