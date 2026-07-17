@@ -154,6 +154,53 @@ struct ContentView: View {
         .clipShape(.circle)
 
 
+        // Mark: Shake animation
+        Button("Shake Me") {
+            withAnimation(.default) {
+                animationAmount = animationAmount == 1.0 ? 1.1 : 1.0
+            }
+        }
+        .frame(width: 150, height: 150)
+        .background(.cyan)
+        .foregroundStyle(.white)
+        .offset(x: enabled ? -10 : 10)
+        .animation(.easeInOut(duration: 0.1).repeatCount(5, autoreverses: true), value: enabled)
+        .onTapGesture {
+            enabled.toggle()
+        }
+        // Mark: Shake animation
+        Button("Shake Me") {
+            withAnimation(.default) {
+                animationAmount = animationAmount == 1.0 ? 1.1 : 1.0
+            }
+        }
+        .frame(width: 150, height: 150)
+        .background(.cyan)
+        .foregroundStyle(.white)
+        .offset(x: enabled ? -10 : 10)
+        .animation(.easeInOut(duration: 0.1).repeatCount(5, autoreverses: true), value: enabled)
+        .onTapGesture {
+            enabled.toggle()
+        }
+
+        // Mark: Sequential animation
+        VStack {
+            Text("Step 1")
+                .opacity(showText ? 1 : 0)
+                .animation(.easeInOut.delay(0.5), value: showText)
+            
+            Text("Step 2")
+                .opacity(showText ? 1 : 0)
+                .animation(.easeInOut.delay(1.0), value: showText)
+            
+            Text("Step 3")
+                .opacity(showText ? 1 : 0)
+                .animation(.easeInOut.delay(1.5), value: showText)
+        }
+        .onAppear {
+            showText = true
+        }
+
     }
 }
 
