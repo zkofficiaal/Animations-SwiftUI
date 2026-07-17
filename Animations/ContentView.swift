@@ -130,6 +130,29 @@ struct ContentView: View {
         .background(.purple)
         .foregroundStyle(.white)
         .opacity(enabled ? 0.3 : 1.0)
+        
+        // Mark: Scale bounce animation
+        Button("Bounce Me") {
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.3)) {
+                animationAmount = animationAmount == 1.0 ? 1.5 : 1.0
+            }
+        }
+        .frame(width: 150, height: 150)
+        .background(.orange)
+        .foregroundStyle(.white)
+        .scaleEffect(animationAmount)
+
+        // Mark: Color cycling animation
+        Button("Color Cycle") {
+            withAnimation(.easeInOut(duration: 1)) {
+                enabled.toggle()
+            }
+        }
+        .frame(width: 150, height: 150)
+        .background(enabled ? .yellow : .pink)
+        .foregroundStyle(.black)
+        .clipShape(.circle)
+
 
     }
 }
