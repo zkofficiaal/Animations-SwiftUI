@@ -347,6 +347,23 @@ struct ContentView: View {
             enabled.toggle()
         }
 
+        // Mark: Drag + spring animation
+        Circle()
+            .fill(Color.indigo)
+            .frame(width: 100, height: 100)
+            .offset(x: animationAmount, y: 0)
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        animationAmount = value.translation.width
+                    }
+                    .onEnded { _ in
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
+                            animationAmount = 0
+                        }
+                    }
+            )
+
     }
 }
 
