@@ -452,6 +452,30 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Glow effect
+        Text("Glowing Text")
+            .font(.largeTitle)
+            .foregroundStyle(.white)
+            .shadow(color: .blue.opacity(enabled ? 1 : 0.3),
+                    radius: enabled ? 20 : 5)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    enabled.toggle()
+                }
+            }
+
+        // Mark: Orbit animation
+        Circle()
+            .fill(Color.red)
+            .frame(width: 30, height: 30)
+            .offset(x: cos(animationAmount) * 80,
+                    y: sin(animationAmount) * 80)
+            .onAppear {
+                withAnimation(.linear(duration: 4).repeatForever(autoreverses: false)) {
+                    animationAmount = .pi * 2
+                }
+            }
+
     }
 }
 
