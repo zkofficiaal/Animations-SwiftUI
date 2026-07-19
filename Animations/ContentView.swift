@@ -321,6 +321,18 @@ struct ContentView: View {
             }
         }
 
+        // Mark: Scale + Shadow pulse
+        Circle()
+            .fill(Color.purple)
+            .frame(width: 100, height: 100)
+            .scaleEffect(animationAmount)
+            .shadow(color: .purple.opacity(0.7), radius: enabled ? 20 : 5)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                    animationAmount = 1.2
+                }
+            }
+
     }
 }
 
