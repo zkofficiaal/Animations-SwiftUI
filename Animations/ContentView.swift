@@ -251,6 +251,26 @@ struct ContentView: View {
                     enabled.toggle()
                 }
             }
+            
+        // Mark: Shape morph animation
+        VStack {
+            if enabled {
+                Capsule()
+                    .fill(Color.green)
+                    .frame(width: 200, height: 100)
+                    .transition(.scale)
+            } else {
+                Rectangle()
+                    .fill(Color.red)
+                    .frame(width: 200, height: 100)
+                    .transition(.slide)
+            }
+        }
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 1)) {
+                enabled.toggle()
+            }
+        }
 
     }
 }
