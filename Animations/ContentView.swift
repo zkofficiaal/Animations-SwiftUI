@@ -439,6 +439,19 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Typing text animation
+        Text(showText ? "SwiftUI Animations" : "")
+            .font(.title)
+            .onAppear {
+                var delay = 0.0
+                for char in "SwiftUI Animations" {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                        showText = true
+                    }
+                    delay += 0.1
+                }
+            }
+
     }
 }
 
