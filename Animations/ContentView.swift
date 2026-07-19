@@ -283,6 +283,17 @@ struct ContentView: View {
                     enabled.toggle()
                 }
             }
+        
+        // Mark: Rotation + Color change
+        Rectangle()
+            .fill(enabled ? Color.blue : Color.green)
+            .frame(width: 150, height: 150)
+            .rotationEffect(.degrees(enabled ? 180 : 0))
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 1)) {
+                    enabled.toggle()
+                }
+            }
 
     }
 }
