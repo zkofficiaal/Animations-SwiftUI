@@ -211,7 +211,18 @@ struct ContentView: View {
                     animationAmount = 1.2
                 }
             }
-
+        
+        // Mark: Blur animation
+        Image(systemName: "star.fill")
+            .resizable()
+            .frame(width: 100, height: 100)
+            .foregroundStyle(.yellow)
+            .blur(radius: enabled ? 0 : 10)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 1)) {
+                    enabled.toggle()
+                }
+            }
 
     }
 }
