@@ -399,6 +399,22 @@ struct ContentView: View {
             enabled = true
         }
 
+        // Mark: Background gradient shift
+        Rectangle()
+            .fill(
+                LinearGradient(
+                    gradient: Gradient(colors: enabled ? [.blue, .green] : [.red, .orange]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .frame(height: 200)
+            .onTapGesture {
+                withAnimation(.linear(duration: 2)) {
+                    enabled.toggle()
+                }
+            }
+
     }
 }
 
