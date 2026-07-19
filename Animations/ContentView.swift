@@ -428,6 +428,17 @@ struct ContentView: View {
             enabled.toggle()
         }
 
+        // Mark: Ripple effect
+        Circle()
+            .stroke(Color.blue, lineWidth: 4)
+            .scaleEffect(animationAmount)
+            .opacity(Double(2 - animationAmount))
+            .onAppear {
+                withAnimation(.easeOut(duration: 1).repeatForever(autoreverses: false)) {
+                    animationAmount = 2
+                }
+            }
+
     }
 }
 
