@@ -364,6 +364,18 @@ struct ContentView: View {
                     }
             )
 
+        // Mark: Hover rotation animation
+        Text("Hover Me")
+            .padding()
+            .background(.mint)
+            .foregroundStyle(.white)
+            .rotationEffect(.degrees(enabled ? 15 : 0))
+            .onHover { hovering in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    enabled = hovering
+                }
+            }
+
     }
 }
 
