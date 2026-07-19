@@ -271,6 +271,18 @@ struct ContentView: View {
                 enabled.toggle()
             }
         }
+        
+        // Mark: Scale + Opacity combo
+        Circle()
+            .fill(Color.red)
+            .frame(width: 120, height: 120)
+            .scaleEffect(enabled ? 1.5 : 1.0)
+            .opacity(enabled ? 0.5 : 1.0)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 1)) {
+                    enabled.toggle()
+                }
+            }
 
     }
 }
