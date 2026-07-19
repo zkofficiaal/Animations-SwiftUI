@@ -235,6 +235,22 @@ struct ContentView: View {
                     enabled.toggle()
                 }
             }
+        
+        // Mark: Gradient animation
+        RoundedRectangle(cornerRadius: 25)
+            .fill(
+                LinearGradient(
+                    colors: enabled ? [.red, .yellow] : [.purple, .blue],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .frame(width: 200, height: 100)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 1)) {
+                    enabled.toggle()
+                }
+            }
 
     }
 }
