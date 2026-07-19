@@ -376,6 +376,16 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Countdown scale animation
+        Text("3…2…1…")
+            .font(.largeTitle)
+            .scaleEffect(animationAmount)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1).repeatCount(3, autoreverses: true)) {
+                    animationAmount = 0.5
+                }
+            }
+
     }
 }
 
