@@ -294,6 +294,17 @@ struct ContentView: View {
                     enabled.toggle()
                 }
             }
+        
+        // Mark: Continuous spinning
+        Image(systemName: "arrow.2.circlepath")
+            .resizable()
+            .frame(width: 80, height: 80)
+            .rotationEffect(.degrees(animationAmount))
+            .onAppear {
+                withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
+                    animationAmount = 360
+                }
+            }
 
     }
 }
