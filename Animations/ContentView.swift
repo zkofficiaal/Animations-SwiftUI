@@ -386,6 +386,19 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Wave animation
+        HStack(spacing: 10) {
+            ForEach(0..<5) { index in
+                Capsule()
+                    .fill(Color.blue)
+                    .frame(width: 10, height: enabled ? 60 : 20)
+                    .animation(.easeInOut(duration: 0.5).repeatForever().delay(Double(index) * 0.2), value: enabled)
+            }
+        }
+        .onAppear {
+            enabled = true
+        }
+
     }
 }
 
