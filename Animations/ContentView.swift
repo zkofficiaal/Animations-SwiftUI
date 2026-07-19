@@ -200,6 +200,18 @@ struct ContentView: View {
         .onAppear {
             showText = true
         }
+        
+        // Mark: Pulse animation
+        Circle()
+            .fill(Color.pink)
+            .frame(width: 100, height: 100)
+            .scaleEffect(animationAmount)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                    animationAmount = 1.2
+                }
+            }
+
 
     }
 }
