@@ -333,6 +333,20 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Staggered animation
+        HStack {
+            ForEach(0..<5) { index in
+                Circle()
+                    .fill(.blue)
+                    .frame(width: 40, height: 40)
+                    .offset(y: enabled ? -20 : 20)
+                    .animation(.easeInOut(duration: 0.5).delay(Double(index) * 0.2), value: enabled)
+            }
+        }
+        .onTapGesture {
+            enabled.toggle()
+        }
+
     }
 }
 
