@@ -306,6 +306,21 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Slide transition
+        VStack {
+            if enabled {
+                Text("Sliding In!")
+                    .padding()
+                    .background(.yellow)
+                    .transition(.move(edge: .leading))
+            }
+        }
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 1)) {
+                enabled.toggle()
+            }
+        }
+
     }
 }
 
