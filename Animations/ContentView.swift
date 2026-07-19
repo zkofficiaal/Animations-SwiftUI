@@ -223,6 +223,18 @@ struct ContentView: View {
                     enabled.toggle()
                 }
             }
+        // Mark: Shadow animation
+        Circle()
+            .fill(Color.blue)
+            .frame(width: 120, height: 120)
+            .shadow(color: .black.opacity(enabled ? 0.8 : 0.2),
+                    radius: enabled ? 20 : 5,
+                    x: 0, y: 0)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    enabled.toggle()
+                }
+            }
 
     }
 }
