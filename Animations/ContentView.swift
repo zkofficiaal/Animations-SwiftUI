@@ -415,6 +415,19 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Parallax effect
+        GeometryReader { geo in
+            Image("backgroundImage")
+                .resizable()
+                .scaledToFill()
+                .frame(width: geo.size.width, height: geo.size.height)
+                .offset(y: enabled ? -50 : 0)
+                .animation(.easeInOut(duration: 1), value: enabled)
+        }
+        .onTapGesture {
+            enabled.toggle()
+        }
+
     }
 }
 
