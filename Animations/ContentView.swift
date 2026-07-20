@@ -565,6 +565,15 @@ struct ContentView: View {
             enabled.toggle()
         }
 
+        // Mark: Path morphing animation
+        RoundedRectangle(cornerRadius: enabled ? 50 : 0)
+            .fill(Color.teal)
+            .frame(width: 200, height: 100)
+            .animation(.easeInOut(duration: 1), value: enabled)
+            .onTapGesture {
+                enabled.toggle()
+            }
+
     }
 }
 
