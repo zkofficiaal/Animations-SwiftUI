@@ -583,6 +583,18 @@ struct ContentView: View {
                 enabled.toggle()
             }
 
+        // Mark: Flip card animation
+        Text(enabled ? "Back" : "Front")
+            .frame(width: 150, height: 150)
+            .background(.brown)
+            .foregroundStyle(.white)
+            .rotation3DEffect(.degrees(enabled ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 1)) {
+                    enabled.toggle()
+                }
+            }
+
     }
 }
 
