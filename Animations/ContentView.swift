@@ -595,6 +595,17 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Elastic bounce animation
+        Circle()
+            .fill(Color.purple)
+            .frame(width: 100, height: 100)
+            .scaleEffect(animationAmount)
+            .onAppear {
+                withAnimation(.interpolatingSpring(stiffness: 50, damping: 1).repeatForever(autoreverses: true)) {
+                    animationAmount = 1.3
+                }
+            }
+
     }
 }
 
