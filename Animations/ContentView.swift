@@ -574,6 +574,15 @@ struct ContentView: View {
                 enabled.toggle()
             }
 
+        // Mark: Progress bar animation
+        Rectangle()
+            .fill(Color.green)
+            .frame(width: enabled ? 200 : 0, height: 20)
+            .animation(.easeInOut(duration: 2), value: enabled)
+            .onTapGesture {
+                enabled.toggle()
+            }
+
     }
 }
 
