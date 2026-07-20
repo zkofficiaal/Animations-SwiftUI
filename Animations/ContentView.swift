@@ -523,6 +523,21 @@ struct ContentView: View {
             enabled = true
         }
 
+        // Mark: Confetti burst animation
+        ZStack {
+            ForEach(0..<20) { index in
+                Circle()
+                    .fill(Color.random)
+                    .frame(width: 10, height: 10)
+                    .offset(x: CGFloat.random(in: -100...100),
+                            y: enabled ? CGFloat.random(in: -300...0) : 0)
+                    .animation(.easeOut(duration: 1).delay(Double(index) * 0.05), value: enabled)
+            }
+        }
+        .onTapGesture {
+            enabled.toggle()
+        }
+
     }
 }
 
