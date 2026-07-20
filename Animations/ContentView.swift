@@ -508,6 +508,21 @@ struct ContentView: View {
             }
         }
 
+        // Mark: Springy list animation
+        List {
+            ForEach(0..<5) { index in
+                Text("Item \(index)")
+                    .padding()
+                    .background(.gray.opacity(0.2))
+                    .cornerRadius(10)
+                    .offset(x: enabled ? 0 : -300)
+                    .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(Double(index) * 0.1), value: enabled)
+            }
+        }
+        .onAppear {
+            enabled = true
+        }
+
     }
 }
 
