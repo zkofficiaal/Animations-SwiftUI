@@ -538,6 +538,17 @@ struct ContentView: View {
             enabled.toggle()
         }
 
+        // Mark: Breathing animation
+        Circle()
+            .fill(Color.green)
+            .frame(width: 120, height: 120)
+            .scaleEffect(animationAmount)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
+                    animationAmount = 1.2
+                }
+            }
+
     }
 }
 
