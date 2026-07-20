@@ -488,6 +488,26 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Flip text transition
+        VStack {
+            if enabled {
+                Text("Front Side")
+                    .padding()
+                    .background(.blue)
+                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
+            } else {
+                Text("Back Side")
+                    .padding()
+                    .background(.red)
+                    .transition(.asymmetric(insertion: .opacity, removal: .scale))
+            }
+        }
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 1)) {
+                enabled.toggle()
+            }
+        }
+
     }
 }
 
