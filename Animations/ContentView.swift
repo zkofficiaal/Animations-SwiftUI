@@ -549,6 +549,22 @@ struct ContentView: View {
                 }
             }
 
+        // Mark: Particle burst animation
+        ZStack {
+            ForEach(0..<15) { index in
+                Circle()
+                    .fill(Color.random)
+                    .frame(width: 8, height: 8)
+                    .offset(x: enabled ? CGFloat.random(in: -150...150) : 0,
+                            y: enabled ? CGFloat.random(in: -300...0) : 0)
+                    .opacity(enabled ? 0 : 1)
+                    .animation(.easeOut(duration: 1).delay(Double(index) * 0.05), value: enabled)
+            }
+        }
+        .onTapGesture {
+            enabled.toggle()
+        }
+
     }
 }
 
