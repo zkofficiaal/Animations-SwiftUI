@@ -39,36 +39,60 @@ struct ContentView: View {
 //                    }
         
         
-        // default animaion
-        Button("Tap Me"){
-            enabled.toggle()
+//        // default animaion
+//        Button("Tap Me"){
+//            enabled.toggle()
+//        }
+//        .padding(50)
+//        .background(enabled ? .blue : .red)
+//        .foregroundStyle(Color.white)
+//        .clipShape(.rect(cornerRadius : enabled ? 100 : 10))
+//        .animation(.default, value: enabled)
+//        
+//        
+//        control binding
+//         Mark: Implicit Binding animation
+//                VStack {
+//                    Stepper("Scale amount", value: $animationAmount.animation(
+//                            .easeInOut(duration: 1)
+//                            .repeatCount(5, autoreverses: true)
+//                    ), in: 1...10)
+//        
+//                    Spacer()
+//        
+//                    Button("Tap Me") {
+//                            animationAmount += 1
+//                    }
+//                    .padding(40)
+//                    .background(.red)
+//                    .foregroundStyle(.white)
+//                    .clipShape(.circle)
+//                    .scaleEffect(animationAmount)
+//                }
+//
+        
+        
+        // View animation example
+        Button("Tap Me") {
+            withAnimation(.easeInOut(duration: 1)) {
+                enabled.toggle()
+            }
         }
-        .padding(50)
+        .frame(width: 200, height: 200)
         .background(enabled ? .blue : .red)
-        .foregroundStyle(Color.white)
-        .clipShape(.rect(cornerRadius : enabled ? 100 : 10))
-        .animation(.default, value: enabled)
+        .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
         
-         //control binding
-        
-        // Mark: Implicit Binding animation
-        //        VStack {
-        //            Stepper("Scale amount", value: $animationAmount.animation(
-        //                    .easeInOut(duration: 1)
-        //                    .repeatCount(5, autoreverses: true)
-        //            ), in: 1...10)
-        //
-        //            Spacer()
-        //
-        //            Button("Tap Me") {
-        //                    animationAmount += 1
-        //            }
-        //            .padding(40)
-        //            .background(.red)
-        //            .foregroundStyle(.white)
-        //            .clipShape(.circle)
-        //            .scaleEffect(animationAmount)
-        //        }
+        // Binding animation example
+        Stepper("Scale amount", value: $animationAmount.animation(
+            .easeInOut(duration: 1).repeatCount(3, autoreverses: true)
+        ), in: 1...5)
+
+        Circle()
+            .fill(Color.green)
+            .frame(width: 100, height: 100)
+            .scaleEffect(animationAmount)
+
+
         
         //Mark: Explicit animation
 //        Button("tap me"){
