@@ -14,31 +14,42 @@ struct ContentView: View {
     @Namespace private var animationNamespace
 
     var body: some View{
-        //Mark: Implicit view animation
-        //            Button("Tap Me"){
-        //                //animationAmount += 1.0
-        //            }
-        //            .padding(50)
-        //            .background(.red)
-        //            .foregroundStyle(Color.white)
-        //            .clipShape(.circle)
-        //            //.scaleEffect(animationAmount)
-        //            //.animation(.linear, value: animationAmount)
-        //            .overlay(
-        //                Circle()
-        //                    .stroke(Color.black)
-        //                    .scaleEffect(animationAmount)
-        //                    .opacity(2-animationAmount)
-        //                    .animation(
-        //                        .easeInOut(duration: 2)
-        //                        .repeatForever(autoreverses: false),value: animationAmount
-        //                    )
-        //            )
-        //            .onAppear(){
-        //                animationAmount = 2
-        //            }
-        //
-        // control binding
+//        //Mark: Implicit view animation
+//                    Button("Tap Me"){
+//                        //animationAmount += 1.0
+//                    }
+//                    .padding(50)
+//                    .background(.red)
+//                    .foregroundStyle(Color.white)
+//                    .clipShape(.circle)
+//                    //.scaleEffect(animationAmount)
+//                    //.animation(.linear, value: animationAmount)
+//                    .overlay(
+//                        Circle()
+//                            .stroke(Color.blue)
+//                            .scaleEffect(animationAmount)
+//                            .opacity(2-animationAmount)
+//                            .animation(
+//                                .easeInOut(duration: 2)
+//                                .repeatForever(autoreverses: false),value: animationAmount
+//                            )
+//                    )
+//                    .onAppear(){
+//                        animationAmount = 2
+//                    }
+        
+        
+        // default animaion
+        Button("Tap Me"){
+            enabled.toggle()
+        }
+        .padding(50)
+        .background(enabled ? .blue : .red)
+        .foregroundStyle(Color.white)
+        .clipShape(.rect(cornerRadius : enabled ? 100 : 10))
+        .animation(.default, value: enabled)
+        
+         //control binding
         
         // Mark: Implicit Binding animation
         //        VStack {
@@ -59,7 +70,7 @@ struct ContentView: View {
         //            .scaleEffect(animationAmount)
         //        }
         
-//        //Mark: Explicit animation
+        //Mark: Explicit animation
 //        Button("tap me"){
 //            withAnimation(.spring(duration: 1, bounce: 0.5)){
 //                animationAmount += 360
@@ -70,7 +81,7 @@ struct ContentView: View {
 //        .foregroundColor(.white)
 //        .clipShape(.circle)
 //        .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 0))
-        
+//        
 //        Button ("tap me "){
 //            //tap me
 //        }
@@ -477,134 +488,134 @@ struct ContentView: View {
 //            }
 
         // Mark: Path animation
-        Circle()
-            .fill(Color.orange)
-            .frame(width: 30, height: 30)
-            .offset(x: cos(animationAmount) * 100,
-                    y: sin(animationAmount) * 50)
-            .onAppear {
-                withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
-                    animationAmount = .pi * 2
-                }
-            }
-
-        // Mark: Flip text transition
-        VStack {
-            if enabled {
-                Text("Front Side")
-                    .padding()
-                    .background(.blue)
-                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
-            } else {
-                Text("Back Side")
-                    .padding()
-                    .background(.red)
-                    .transition(.asymmetric(insertion: .opacity, removal: .scale))
-            }
-        }
-        .onTapGesture {
-            withAnimation(.easeInOut(duration: 1)) {
-                enabled.toggle()
-            }
-        }
-
-        // Mark: Springy list animation
-        List {
-            ForEach(0..<5) { index in
-                Text("Item \(index)")
-                    .padding()
-                    .background(.gray.opacity(0.2))
-                    .cornerRadius(10)
-                    .offset(x: enabled ? 0 : -300)
-                    .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(Double(index) * 0.1), value: enabled)
-            }
-        }
-        .onAppear {
-            enabled = true
-        }
-
-        // Mark: Confetti burst animation
-        ZStack {
-            ForEach(0..<20) { index in
-                Circle()
-                    .fill(Color.random)
-                    .frame(width: 10, height: 10)
-                    .offset(x: CGFloat.random(in: -100...100),
-                            y: enabled ? CGFloat.random(in: -300...0) : 0)
-                    .animation(.easeOut(duration: 1).delay(Double(index) * 0.05), value: enabled)
-            }
-        }
-        .onTapGesture {
-            enabled.toggle()
-        }
-
-        // Mark: Breathing animation
-        Circle()
-            .fill(Color.green)
-            .frame(width: 120, height: 120)
-            .scaleEffect(animationAmount)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
-                    animationAmount = 1.2
-                }
-            }
-
-        // Mark: Particle burst animation
-        ZStack {
-            ForEach(0..<15) { index in
-                Circle()
-                    .fill(Color.random)
-                    .frame(width: 8, height: 8)
-                    .offset(x: enabled ? CGFloat.random(in: -150...150) : 0,
-                            y: enabled ? CGFloat.random(in: -300...0) : 0)
-                    .opacity(enabled ? 0 : 1)
-                    .animation(.easeOut(duration: 1).delay(Double(index) * 0.05), value: enabled)
-            }
-        }
-        .onTapGesture {
-            enabled.toggle()
-        }
-
-        // Mark: Path morphing animation
-        RoundedRectangle(cornerRadius: enabled ? 50 : 0)
-            .fill(Color.teal)
-            .frame(width: 200, height: 100)
-            .animation(.easeInOut(duration: 1), value: enabled)
-            .onTapGesture {
-                enabled.toggle()
-            }
-
-        // Mark: Progress bar animation
-        Rectangle()
-            .fill(Color.green)
-            .frame(width: enabled ? 200 : 0, height: 20)
-            .animation(.easeInOut(duration: 2), value: enabled)
-            .onTapGesture {
-                enabled.toggle()
-            }
-
-        // Mark: Flip card animation
-        Text(enabled ? "Back" : "Front")
-            .frame(width: 150, height: 150)
-            .background(.brown)
-            .foregroundStyle(.white)
-            .rotation3DEffect(.degrees(enabled ? 180 : 0), axis: (x: 0, y: 1, z: 0))
-            .onTapGesture {
-                withAnimation(.easeInOut(duration: 1)) {
-                    enabled.toggle()
-                }
-            }
-
-        // Mark: Elastic bounce animation
-        Circle()
-            .fill(Color.purple)
-            .frame(width: 100, height: 100)
-            .scaleEffect(animationAmount)
-            .onAppear {
-                withAnimation(.interpolatingSpring(stiffness: 50, damping: 1).repeatForever(autoreverses: true)) {
-                    animationAmount = 1.3
-                }
-            }
+//        Circle()
+//            .fill(Color.orange)
+//            .frame(width: 30, height: 30)
+//            .offset(x: cos(animationAmount) * 100,
+//                    y: sin(animationAmount) * 50)
+//            .onAppear {
+//                withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
+//                    animationAmount = .pi * 2
+//                }
+//            }
+//
+//        // Mark: Flip text transition
+//        VStack {
+//            if enabled {
+//                Text("Front Side")
+//                    .padding()
+//                    .background(.blue)
+//                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
+//            } else {
+//                Text("Back Side")
+//                    .padding()
+//                    .background(.red)
+//                    .transition(.asymmetric(insertion: .opacity, removal: .scale))
+//            }
+//        }
+//        .onTapGesture {
+//            withAnimation(.easeInOut(duration: 1)) {
+//                enabled.toggle()
+//            }
+//        }
+//
+//        // Mark: Springy list animation
+//        List {
+//            ForEach(0..<5) { index in
+//                Text("Item \(index)")
+//                    .padding()
+//                    .background(.gray.opacity(0.2))
+//                    .cornerRadius(10)
+//                    .offset(x: enabled ? 0 : -300)
+//                    .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(Double(index) * 0.1), value: enabled)
+//            }
+//        }
+//        .onAppear {
+//            enabled = true
+//        }
+//
+//        // Mark: Confetti burst animation
+//        ZStack {
+//            ForEach(0..<20) { index in
+//                Circle()
+//                    .fill(Color.random)
+//                    .frame(width: 10, height: 10)
+//                    .offset(x: CGFloat.random(in: -100...100),
+//                            y: enabled ? CGFloat.random(in: -300...0) : 0)
+//                    .animation(.easeOut(duration: 1).delay(Double(index) * 0.05), value: enabled)
+//            }
+//        }
+//        .onTapGesture {
+//            enabled.toggle()
+//        }
+//
+//        // Mark: Breathing animation
+//        Circle()
+//            .fill(Color.green)
+//            .frame(width: 120, height: 120)
+//            .scaleEffect(animationAmount)
+//            .onAppear {
+//                withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
+//                    animationAmount = 1.2
+//                }
+//            }
+//
+//        // Mark: Particle burst animation
+//        ZStack {
+//            ForEach(0..<15) { index in
+//                Circle()
+//                    .fill(Color.random)
+//                    .frame(width: 8, height: 8)
+//                    .offset(x: enabled ? CGFloat.random(in: -150...150) : 0,
+//                            y: enabled ? CGFloat.random(in: -300...0) : 0)
+//                    .opacity(enabled ? 0 : 1)
+//                    .animation(.easeOut(duration: 1).delay(Double(index) * 0.05), value: enabled)
+//            }
+//        }
+//        .onTapGesture {
+//            enabled.toggle()
+//        }
+//
+//        // Mark: Path morphing animation
+//        RoundedRectangle(cornerRadius: enabled ? 50 : 0)
+//            .fill(Color.teal)
+//            .frame(width: 200, height: 100)
+//            .animation(.easeInOut(duration: 1), value: enabled)
+//            .onTapGesture {
+//                enabled.toggle()
+//            }
+//
+//        // Mark: Progress bar animation
+//        Rectangle()
+//            .fill(Color.green)
+//            .frame(width: enabled ? 200 : 0, height: 20)
+//            .animation(.easeInOut(duration: 2), value: enabled)
+//            .onTapGesture {
+//                enabled.toggle()
+//            }
+//
+//        // Mark: Flip card animation
+//        Text(enabled ? "Back" : "Front")
+//            .frame(width: 150, height: 150)
+//            .background(.brown)
+//            .foregroundStyle(.white)
+//            .rotation3DEffect(.degrees(enabled ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+//            .onTapGesture {
+//                withAnimation(.easeInOut(duration: 1)) {
+//                    enabled.toggle()
+//                }
+//            }
+//
+//        // Mark: Elastic bounce animation
+//        Circle()
+//            .fill(Color.purple)
+//            .frame(width: 100, height: 100)
+//            .scaleEffect(animationAmount)
+//            .onAppear {
+//                withAnimation(.interpolatingSpring(stiffness: 50, damping: 1).repeatForever(autoreverses: true)) {
+//                    animationAmount = 1.3
+//                }
+//            }
 
     }
 }
