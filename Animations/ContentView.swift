@@ -73,24 +73,37 @@ struct ContentView: View {
         
         
         // View animation example
+//        Button("Tap Me") {
+//            withAnimation(.easeInOut(duration: 1)) {
+//                enabled.toggle()
+//            }
+//        }
+//        .frame(width: 200, height: 200)
+//        .background(enabled ? .blue : .red)
+//        .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
+//        
+//        Spacer()
+//        
+//        // Binding animation example
+//        Stepper("Scale amount", value: $animationAmount.animation(
+//            .easeInOut(duration: 1).repeatCount(3, autoreverses: true)
+//        ), in: 1...5)
+//
+//        Circle()
+//            .fill(Color.green)
+//            .frame(width: 100, height: 100)
+//            .scaleEffect(animationAmount)
+        
+        
         Button("Tap Me") {
-            withAnimation(.easeInOut(duration: 1)) {
-                enabled.toggle()
-            }
+            enabled.toggle()
         }
         .frame(width: 200, height: 200)
         .background(enabled ? .blue : .red)
+        .animation(nil, value: enabled)
+        .foregroundStyle(.white)
         .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
-        
-        // Binding animation example
-        Stepper("Scale amount", value: $animationAmount.animation(
-            .easeInOut(duration: 1).repeatCount(3, autoreverses: true)
-        ), in: 1...5)
-
-        Circle()
-            .fill(Color.green)
-            .frame(width: 100, height: 100)
-            .scaleEffect(animationAmount)
+        .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
 
 
         
